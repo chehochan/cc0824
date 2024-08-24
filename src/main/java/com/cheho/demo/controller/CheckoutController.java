@@ -224,6 +224,8 @@ public class CheckoutController {
         }
 
         if (tool != null) {
+
+            // The folowing block of code calculates how many days are charged and not charged.
             int noChargeDayCount = 0;
             int weekendDayCount = getWeekendDays(getStartDate(), getRentalLength());
             int holidayCounts = checkHoliday(getStartDate(), getRentalLength());
