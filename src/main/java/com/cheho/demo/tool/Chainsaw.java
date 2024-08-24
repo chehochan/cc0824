@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Scope("prototype")
 @Component
-public class Chainsaw extends Tool{
+public class Chainsaw extends Tool {
 
     @Value("${chainsaw.daily-charge}")
     private double dailyCharge;
@@ -21,7 +21,7 @@ public class Chainsaw extends Tool{
     @Value("${chainsaw.holiday-charge}")
     private boolean isHolidayCharge;
 
-    public Chainsaw (String brand, String toolCode){
+    public Chainsaw(String brand, String toolCode) {
         super(brand, toolCode, "Chainsaw");
     }
 

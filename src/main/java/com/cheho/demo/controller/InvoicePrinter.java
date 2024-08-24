@@ -146,7 +146,7 @@ public class InvoicePrinter {
         this.finalCharge = finalCharge;
     }
 
-    public void printAgreement(){
+    public void printAgreement() {
         NumberFormat moneyFormatter = NumberFormat.getCurrencyInstance();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
@@ -156,19 +156,19 @@ public class InvoicePrinter {
         System.out.println("Tool brand: " + getToolBrand());
         System.out.println("Rental Days: " + getRentalDays());
         String checkoutDateString = getCheckoutDate().format(dateTimeFormatter);
-        System.out.println("checkoutDate: " +  checkoutDateString);
+        System.out.println("checkoutDate: " + checkoutDateString);
         String dueDateString = getDueDate().format(dateTimeFormatter);
-        System.out.println("Due date: " +  dueDateString);
+        System.out.println("Due date: " + dueDateString);
         String dailyRentalCharge = moneyFormatter.format(getDailyRentalCharge());
-        System.out.println("Daily rental charge: " +  dailyRentalCharge);
-        System.out.println("Charge days: " +  getChargeDays());
+        System.out.println("Daily rental charge: " + dailyRentalCharge);
+        System.out.println("Charge days: " + getChargeDays());
         String preDiscountChargeString = moneyFormatter.format(getPreDiscountCharge());
-        System.out.println("Pre-Discount Charge: " +  preDiscountChargeString);
-        System.out.println("Discount Percentage: " +  getDiscountPercentage() + "%");
+        System.out.println("Pre-Discount Charge: " + preDiscountChargeString);
+        System.out.println("Discount Percentage: " + getDiscountPercentage() + "%");
         String discountAmountString = moneyFormatter.format(getDiscountAmount());
-        System.out.println("Discount Amount: " +  discountAmountString);
+        System.out.println("Discount Amount: " + discountAmountString);
         String finalChargeString = moneyFormatter.format(getFinalCharge());
-        System.out.println("Final Charge: " +  finalChargeString);
+        System.out.println("Final Charge: " + finalChargeString);
     }
 
 }

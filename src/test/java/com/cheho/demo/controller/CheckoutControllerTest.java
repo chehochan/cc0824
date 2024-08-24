@@ -24,6 +24,8 @@ class CheckoutControllerTest {
 
     @Test
     void chainsawTest() throws Exception {
+        logger.info("Running basic chainsaw test...");
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate checkoutDate = LocalDate.of(2024, 9, 1);
         int rentalLength = 12;
@@ -43,6 +45,8 @@ class CheckoutControllerTest {
 
     @Test
     void jackhammerTest() throws Exception {
+        logger.info("Running basic jackhammer test...");
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate checkoutDate = LocalDate.of(2024, 7, 2);
         int rentalLength = 10;
@@ -61,6 +65,8 @@ class CheckoutControllerTest {
 
     @Test
     void ladderTest() throws Exception {
+        logger.info("Running basic ladder test...");
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate checkoutDate = LocalDate.of(2023, 7, 2);
         int rentalLength = 5;
@@ -78,6 +84,8 @@ class CheckoutControllerTest {
 
     @Test
     void invalidDiscountTest() throws Exception {
+        logger.info("Running invalidDiscountTest()");
+
         LocalDate checkoutDate = LocalDate.of(2023, 7, 2);
         int rentalLength = 5;
         int discount=101;
@@ -93,6 +101,9 @@ class CheckoutControllerTest {
 
     @Test
     void invalidRentalDaysTest() throws Exception {
+
+        logger.info("Running invalidRentalDaysTest...");
+
         LocalDate checkoutDate = LocalDate.of(2023, 9, 2);
         int rentalLength = 0;
         int discount=20;
@@ -108,6 +119,8 @@ class CheckoutControllerTest {
 
     @Test
     void invalidToolCodeTest() throws Exception {
+        logger.info("Running invalidToolCodeTest...");
+
         LocalDate checkoutDate = LocalDate.of(2023, 9, 2);
         int rentalLength = 10;
         int discount=20;
@@ -123,6 +136,8 @@ class CheckoutControllerTest {
 
     @Test
     void testCase1() throws Exception {
+        logger.info("Running unit test case 1...");
+        
         LocalDate checkoutDate = LocalDate.of(2015, 9, 3);
         int rentalLength = 5;
         int discount=101;
@@ -140,6 +155,9 @@ class CheckoutControllerTest {
 
     @Test
     void testCase2() throws Exception {
+
+        logger.info("Running unit test case 2...");
+
         LocalDate checkoutDate = LocalDate.of(2020, 7, 2);
         LocalDate returnDate = LocalDate.of(2020, 7, 5);
 
@@ -172,6 +190,8 @@ class CheckoutControllerTest {
 
     @Test
     void testCase3() throws Exception {
+        logger.info("Running unit test case 3...");
+
         LocalDate checkoutDate = LocalDate.of(2015, 7, 2);
         LocalDate returnDate = LocalDate.of(2015, 7, 7);
 
@@ -200,7 +220,41 @@ class CheckoutControllerTest {
     }
 
     @Test
+    void testCase4() throws Exception {
+        logger.info("Running unit test case 4...");
+
+        LocalDate checkoutDate = LocalDate.of(2015, 9, 3);
+        LocalDate returnDate = LocalDate.of(2015, 9, 9);
+
+        int rentalLength = 6;
+        int discount=0;
+        CheckoutController checkoutController = beanFactory.getBean(CheckoutController.class,
+                checkoutDate,
+                rentalLength,
+                "JAKD",
+                discount
+        );
+        // September 5th and 6th were on the weekend
+        // Septmber 7th is labor day
+        // Expect 3 days of no charge
+        InvoicePrinter invoicePrinter = checkoutController.checkout();
+        assertEquals("JAKD", invoicePrinter.getToolCode());
+        assertEquals("Jackhammer", invoicePrinter.getToolType());
+        assertEquals("DeWalt", invoicePrinter.getToolBrand());
+        assertEquals(checkoutDate, invoicePrinter.getCheckoutDate());
+        assertEquals(returnDate, invoicePrinter.getDueDate());
+        assertEquals(2.99, invoicePrinter.getDailyRentalCharge());
+        assertEquals(3, invoicePrinter.getChargeDays());
+        assertEquals(2.99*3, invoicePrinter.getPreDiscountCharge());
+        assertEquals(0, invoicePrinter.getDiscountAmount());
+        assertEquals(0, invoicePrinter.getDiscountPercentage());
+        assertEquals(2.99*3, invoicePrinter.getFinalCharge());
+    }
+
+    @Test
     void testCase5() throws Exception {
+        logger.info("Running unit test case 5...");
+
         LocalDate checkoutDate = LocalDate.of(2015, 7, 2);
         LocalDate returnDate = LocalDate.of(2015, 7, 11);
 
@@ -231,6 +285,8 @@ class CheckoutControllerTest {
 
     @Test
     void testCase6() throws Exception {
+        logger.info("Running unit test case 6...");
+
         LocalDate checkoutDate = LocalDate.of(2015, 7, 2);
         LocalDate returnDate = LocalDate.of(2015, 7, 6);
 
