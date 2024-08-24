@@ -1,0 +1,15 @@
+ladder:
+  daily-charge: 1.99
+  weekday-charge: true
+  weekend-charge: true
+  holiday-charge: false
+chainsaw:
+  daily-charge: 1.49
+  weekday-charge: true
+  weekend-charge: false
+  holiday-charge: true
+jackhammer:
+  daily-charge: 2.99
+  weekday-charge: true
+  weekend-charge: false
+  holiday-charge: false
