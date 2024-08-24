@@ -21,9 +21,9 @@ import java.util.InputMismatchException;
 @Component
 public class CheckoutController {
 
+    private final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
     @Autowired
     BeanFactory beanFactory;
-    private final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
     private LocalDate startDate;
 
     private int rentalLength;
@@ -73,7 +73,8 @@ public class CheckoutController {
 
     /**
      * The function calculates the number of weekend days
-     * @param startDate    The date of the rental checkout
+     *
+     * @param startDate  The date of the rental checkout
      * @param rentalDays The number of rental days
      * @return The total number of days on weekend
      */
@@ -91,7 +92,8 @@ public class CheckoutController {
 
     /**
      * The function calculates the number of holidays
-     * @param startDate    The date of the rental checkout
+     *
+     * @param startDate  The date of the rental checkout
      * @param rentalDays The number of rental days
      * @return The total number of holidays
      */
@@ -164,7 +166,8 @@ public class CheckoutController {
 
     /**
      * The function validates if the discount percentage is out of range
-     * @param percent   The percentage number from input
+     *
+     * @param percent The percentage number from input
      * @return a boolean value if the discount is range
      */
     private boolean isDiscountValid(int percent) {
@@ -173,19 +176,18 @@ public class CheckoutController {
 
     /**
      * The function checks if the date is July 4th
-     * @param date    The date that needs to be checked
+     *
+     * @param date The date that needs to be checked
      * @return a boolean if it is July 4th
      */
     private boolean checkJuly4thDiscount(LocalDate date) {
-        boolean isJuly4th = false;
-        if (date.getDayOfMonth() == 4) {
-            isJuly4th = true;
-        }
+        boolean isJuly4th = date.getDayOfMonth() == 4;
         return isJuly4th;
     }
 
     /**
      * The function calculates the holidays/weekends, total charge and discount
+     *
      * @return An InvoicePrinter Object
      */
     public InvoicePrinter checkout() throws Exception {
@@ -202,9 +204,9 @@ public class CheckoutController {
         }
 
         /*
-        * Depending on the tool code, it creates a new bean of the specific tool.
-        * The brand is passed in as an argument to construct the object/bean.
-        * */
+         * Depending on the tool code, it creates a new bean of the specific tool.
+         * The brand is passed in as an argument to construct the object/bean.
+         * */
         switch (toolCode) {
             case "CHNS":
                 tool = beanFactory.getBean(Chainsaw.class, "Stihl", toolCode);
@@ -224,6 +226,8 @@ public class CheckoutController {
         }
 
         if (tool != null) {
+
+            // The folowing block of code calculates how many days are charged and not charged.
             int noChargeDayCount = 0;
             int weekendDayCount = getWeekendDays(getStartDate(), getRentalLength());
             int holidayCounts = checkHoliday(getStartDate(), getRentalLength());

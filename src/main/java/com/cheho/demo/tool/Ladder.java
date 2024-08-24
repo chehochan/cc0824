@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Scope("prototype")
 @Component
-public class Ladder extends Tool{
+public class Ladder extends Tool {
 
     @Value("${ladder.daily-charge}")
     private double dailyCharge;
@@ -20,7 +20,7 @@ public class Ladder extends Tool{
     @Value("${ladder.holiday-charge}")
     private boolean isholidayCharge;
 
-    public Ladder (String brand, String toolCode){
+    public Ladder(String brand, String toolCode) {
         super(brand, toolCode, "Ladder");
     }
 
